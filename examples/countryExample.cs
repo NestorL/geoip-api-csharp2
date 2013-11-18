@@ -6,15 +6,17 @@
 
 using System;
 using System.IO;
-class Appa0{
-  public static void Main(String[] args){
-    string GeoipDbPath = "/usr/local/share/GeoIP/";
-    string GeoipDb = GeoipDbPath + "GeoIP.dat";
-    //open the database
-    LookupService ls = new LookupService(GeoipDb, LookupService.GEOIP_MEMORY_CACHE);
-    //get country of the ip address
-    Country c = ls.getCountry("24.24.24.24");
-    Console.Write(" code: " + c.getCode()+"\n");
-    Console.Write(" name: " + c.getName()+"\n");
-  }
+class countryExample
+{
+    public static void Run(String[] args)
+    {
+        string GeoipDbPath = "/usr/local/share/GeoIP/";
+        string GeoipDb = GeoipDbPath + "GeoIP.dat";
+        //open the database
+        LookupService ls = new LookupService(GeoipDb, LookupService.GEOIP_MEMORY_CACHE);
+        //get country of the ip address
+        Country c = ls.getCountry("24.24.24.24");
+        Console.Write(" code: " + c.getCode() + "\n");
+        Console.Write(" name: " + c.getName() + "\n");
+    }
 }
