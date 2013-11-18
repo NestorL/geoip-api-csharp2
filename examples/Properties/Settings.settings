@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="geoip_api_csharp2.examples.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="GeoipDbPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">dbs/</Value>
+    </Setting>
+    <Setting Name="GeoipDb" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">GeoLiteCity.dat</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
