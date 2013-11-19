@@ -48,5 +48,18 @@ namespace geoip_api_csharp2.tests
             l.longitude.ShouldEqual(-64);
         }
 
+        [Test]
+        public void UnknownCityReturnsNullNotFailing()
+        {
+            string geoipDb = Path.Combine(GeoipDbPath, GeoipDb);
+
+            LookupService ls = new LookupService(geoipDb); // Defaults to LookupService.GEOIP_STANDARD
+
+            Location l = ls.getLocation("0.2.3.4");
+
+            l.ShouldBeNull();
+        }
+
+
     }
 }
