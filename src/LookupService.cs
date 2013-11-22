@@ -123,7 +123,8 @@ public class LookupService{
         init();
     }
 
-    public LookupService(String databaseFile):this(databaseFile, GEOIP_STANDARD){
+    public LookupService(String databaseFile)
+        :this(databaseFile, GEOIP_STANDARD){
     }
 
     private void init(){
