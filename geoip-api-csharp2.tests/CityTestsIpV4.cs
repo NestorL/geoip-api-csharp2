@@ -19,16 +19,19 @@ namespace geoip_api_csharp2.tests
         {
             // 186.33.234.28 Should give country code "AR", country "Argentina", latitude -34 and longitude -64
             string geoipDb = Path.Combine(GeoipDbPath, GeoipDb);
-            //LookupService ls = new LookupService(geoipDb, LookupService.GEOIP_STANDARD);
-            LookupService ls = new LookupService(geoipDb, LookupService.GEOIP_MEMORY_CACHE); // Set cached in memory database
 
-            Location l = ls.getLocation("186.33.234.28");
+            using (var ls = new LookupService(geoipDb, LookupService.GEOIP_MEMORY_CACHE)) // Set cached in memory database
+            {
 
-            l.ShouldNotBeNull();
-            l.countryCode.ShouldEqual("AR");
-            l.countryName.ShouldEqual("Argentina");
-            l.latitude.ShouldEqual(-34);
-            l.longitude.ShouldEqual(-64);
+                Location l = ls.getLocation("186.33.234.28");
+
+                l.ShouldNotBeNull();
+                l.countryCode.ShouldEqual("AR");
+                l.countryName.ShouldEqual("Argentina");
+                l.latitude.ShouldEqual(-34);
+                l.longitude.ShouldEqual(-64);
+
+            }
         }
 
         [Test]
@@ -36,16 +39,17 @@ namespace geoip_api_csharp2.tests
         {
             // 186.33.234.28 Should give country code "AR", country "Argentina", latitude -34 and longitude -64
             string geoipDb = Path.Combine(GeoipDbPath, GeoipDb);
-            //LookupService ls = new LookupService(geoipDb, LookupService.GEOIP_STANDARD);
-            LookupService ls = new LookupService(geoipDb); // Defaults to LookupService.GEOIP_STANDARD
 
-            Location l = ls.getLocation("186.33.234.28");
+            using (var ls = new LookupService(geoipDb))
+            {
+                Location l = ls.getLocation("186.33.234.28");
 
-            l.ShouldNotBeNull();
-            l.countryCode.ShouldEqual("AR");
-            l.countryName.ShouldEqual("Argentina");
-            l.latitude.ShouldEqual(-34);
-            l.longitude.ShouldEqual(-64);
+                l.ShouldNotBeNull();
+                l.countryCode.ShouldEqual("AR");
+                l.countryName.ShouldEqual("Argentina");
+                l.latitude.ShouldEqual(-34);
+                l.longitude.ShouldEqual(-64);
+            }
         }
 
         [Test]
@@ -53,11 +57,12 @@ namespace geoip_api_csharp2.tests
         {
             string geoipDb = Path.Combine(GeoipDbPath, GeoipDb);
 
-            LookupService ls = new LookupService(geoipDb); // Defaults to LookupService.GEOIP_STANDARD
+            using (var ls = new LookupService(geoipDb))
+            {
+                Location l = ls.getLocation("0.2.3.4");
 
-            Location l = ls.getLocation("0.2.3.4");
-
-            l.ShouldBeNull();
+                l.ShouldBeNull();
+            }
         }
 
 

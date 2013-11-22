@@ -24,7 +24,8 @@ using System.IO;
 using System.Net;
 using System.Runtime.CompilerServices;
 
-public class LookupService{
+public class LookupService : IDisposable
+{
     private FileStream file = null;
     private DatabaseInfo databaseInfo = null;
     private Object ioLock = new Object();
@@ -881,4 +882,8 @@ public class LookupService{
         return (int) b & 0xFF;
     }
 
+    public void Dispose()
+    {
+        this.close();
+    }
 }

@@ -9,26 +9,26 @@ using NUnit.Framework;
 namespace geoip_api_csharp2.tests
 {
     [TestFixture]
-    public class CityTestsIpV6
+    public class RegionTestsIpV4
     {
         protected const string GeoipDbPath = "dbs/";
-        protected const string GeoipDb = "GeoLiteCityv6.dat";
+        protected const string GeoipDb = "GeoLiteCity.dat";
 
         [Test]
-        public void FindCityCacheDbIp()
+        public void FindRegionCacheDbIp()
         {
             // 186.33.234.28 Should give country code "AR", country "Argentina", latitude -34 and longitude -64
             string geoipDb = Path.Combine(GeoipDbPath, GeoipDb);
 
             using (var ls = new LookupService(geoipDb, LookupService.GEOIP_MEMORY_CACHE)) // Set cached in memory database
             {
-                Location l = ls.getLocationV6("0:0:0:0:0:ffff:ba21:ea1c");
 
-                l.ShouldNotBeNull();
-                l.countryCode.ShouldEqual("AR");
-                l.countryName.ShouldEqual("Argentina");
-                l.latitude.ShouldEqual(-34);
-                l.longitude.ShouldEqual(-64);
+                Region r = ls.getRegion("186.33.234.28");
+
+                r.ShouldNotBeNull();
+                r.countryCode.ShouldEqual("AR");
+                r.countryName.ShouldEqual("Argentina");
+
             }
         }
 
@@ -38,19 +38,29 @@ namespace geoip_api_csharp2.tests
             // 186.33.234.28 Should give country code "AR", country "Argentina", latitude -34 and longitude -64
             string geoipDb = Path.Combine(GeoipDbPath, GeoipDb);
 
-            using (var ls = new LookupService(geoipDb))  // Defaults to LookupService.GEOIP_STANDARD
+            using (var ls = new LookupService(geoipDb))
             {
+                Region r = ls.getRegion("186.33.234.28");
 
-            Location l = ls.getLocationV6("0:0:0:0:0:ffff:ba21:ea1c");
-
-            l.ShouldNotBeNull();
-            l.countryCode.ShouldEqual("AR");
-            l.countryName.ShouldEqual("Argentina");
-            l.latitude.ShouldEqual(-34);
-            l.longitude.ShouldEqual(-64);
-
+                r.ShouldNotBeNull();
+                r.countryCode.ShouldEqual("AR");
+                r.countryName.ShouldEqual("Argentina");
             }
         }
+
+        [Test]
+        public void UnknownCityReturnsNullNotFailing()
+        {
+            string geoipDb = Path.Combine(GeoipDbPath, GeoipDb);
+
+            using (var ls = new LookupService(geoipDb))
+            {
+                Location l = ls.getLocation("0.2.3.4");
+
+                l.ShouldBeNull();
+            }
+        }
+
 
     }
 }

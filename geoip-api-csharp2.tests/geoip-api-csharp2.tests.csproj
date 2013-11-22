@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="CityTestsIpV4.cs" />
     <Compile Include="CityTestsIpV6.cs" />
+    <Compile Include="RegionTestsIpV4.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecExtensions\NUnitSpecificationExtensions.cs" />
   </ItemGroup>
