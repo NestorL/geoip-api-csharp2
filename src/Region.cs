@@ -1,9 +1,9 @@
 using System;
 using System.IO;
 public class Region{
-  public String countryCode;
-  public String countryName;
-  public String region;
+  internal String countryCode;
+  internal String countryName;
+  internal String region;
   public Region(){
   }
   public Region(String countryCode,String countryName,String region){
