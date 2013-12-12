@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "geoip-api-csharp2.examples"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "geoip-api-csharp2.tests", "geoip-api-csharp2.tests\geoip-api-csharp2.tests.csproj", "{817B8281-0D72-4D33-B324-B029C8A6F037}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{61A15F07-8EDC-4BB5-8F95-65AC18D13FB7}"
+	ProjectSection(SolutionItems) = preProject
+		Common\AssemblyVersion.cs = Common\AssemblyVersion.cs
+		Build\Build.proj = Build\Build.proj
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,8 +34,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal
