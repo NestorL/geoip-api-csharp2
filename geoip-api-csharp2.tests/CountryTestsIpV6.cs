@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace geoip_api_csharp2.tests
 {
     [TestFixture]
-    public class RegionTestsIpV4
+    public class CountryTestsIpV6
     {
         protected const string GeoipDbPath = "dbs/";
         protected const string GeoipDb = "GeoLiteCity.dat";
@@ -20,14 +20,14 @@ namespace geoip_api_csharp2.tests
             // 186.33.234.28 Should give country code "AR", country "Argentina", latitude -34 and longitude -64
             string geoipDb = Path.Combine(GeoipDbPath, GeoipDb);
 
-            using (var ls = new LookupService(geoipDb)) // Set cached in memory database
+            using (var ls = new LookupService(geoipDb, LookupService.GEOIP_MEMORY_CACHE)) // Set cached in memory database
             {
 
-                Region r = ls.getRegion("186.33.234.28");
+                Country c = ls.getCountryV6("0:0:0:0:0:ffff:ba21:ea1c");
 
-                r.ShouldNotBeNull();
-                //r.getcountryCode().ShouldEqual("AR");
-                //r.getcountryName().ShouldEqual("Argentina");
+                c.ShouldNotBeNull();
+                c.getCode().ShouldEqual("--");
+                c.getName().ShouldEqual("N/A");
 
             }
         }
@@ -40,24 +40,26 @@ namespace geoip_api_csharp2.tests
 
             using (var ls = new LookupService(geoipDb))
             {
-                Region r = ls.getRegion("186.33.234.28");
+                Country c = ls.getCountryV6("0:0:0:0:0:ffff:ba21:ea1c");
 
-                r.ShouldNotBeNull();
-                //r.countryCode.ShouldEqual("AR");
-                //r.countryName.ShouldEqual("Argentina");
+                c.ShouldNotBeNull();
+                c.getCode().ShouldEqual("--");
+                c.getName().ShouldEqual("N/A");
             }
         }
 
         [Test]
-        public void UnknownCityReturnsNullNotFailing()
+        public void UnknownCityReturnsUknownNotFailing()
         {
             string geoipDb = Path.Combine(GeoipDbPath, GeoipDb);
 
             using (var ls = new LookupService(geoipDb))
             {
-                Location l = ls.getLocation("0.2.3.4");
+                Country c = ls.getCountryV6("0:0:0:0:0:ffff:ba21:ea1c");
 
-                l.ShouldBeNull();
+                c.ShouldNotBeNull();
+                c.getCode().ShouldEqual("--");
+                c.getName().ShouldEqual("N/A");
             }
         }
 
