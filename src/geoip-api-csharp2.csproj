@@ -35,6 +35,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Common\AssemblyVersion.cs">
+      <Link>Properties\AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="Country.cs" />
     <Compile Include="DatabaseInfo.cs" />
     <Compile Include="Location.cs" />
