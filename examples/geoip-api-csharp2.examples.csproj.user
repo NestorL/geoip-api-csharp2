@@ -4,6 +4,6 @@
     <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>-t cityExample "186.33.234.28"</StartArguments>
+    <StartArguments>-t infoExample "dbs/GeoLiteCityv6.dat"</StartArguments>
   </PropertyGroup>
 </Project>

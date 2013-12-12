@@ -1,11 +1,12 @@
 //an example of how to lookup the database info
 using System;
 using System.IO;
+using geoip_api_csharp2.examples.Properties;
 class infoExample
 {
     public static void Run(String[] args)
     {
-        string GeoipDbPath = "/usr/local/share/GeoIP/";
+        string GeoipDbPath = Settings.Default.GeoipDbPath;
         string GeoipDb = GeoipDbPath + "GeoIPCity.dat";
         if (args.Length > 0)
         {
