@@ -62,7 +62,7 @@ Target "Default" (fun _ ->
 
 Target "BuildApp" (fun _ ->
     !! @"src\**\*.csproj"
-      |> MSBuildRelease buildDir "Build"
+      |> MSBuild buildDir "Build"
       |> Log "AppBuild-Output: "
 )
 
