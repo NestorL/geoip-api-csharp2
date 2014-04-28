@@ -61,7 +61,7 @@ Target "Default" (fun _ ->
 //Target "BuildApp" (fun _ -> mainSln "Rebuild")
 
 Target "BuildApp" (fun _ ->
-    !! @"src\**\*.csproj"
+    !! "src/**/*.csproj"
       |> MSBuildRelease buildDir "Build"
       |> Log "AppBuild-Output: "
 )
