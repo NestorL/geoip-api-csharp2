@@ -240,12 +240,12 @@ public class LookupService : IDisposable
     }
     public void close()
     {
-        try
+        //try
         {
-            lock (ioLock) { file.Close(); }
+            lock (ioLock) { if (file != null) file.Close(); }
             file = null;
         }
-        catch (Exception) { }
+        //catch (Exception) {  }
     }
     public Country getCountry(IPAddress ipAddress)
     {
@@ -1065,8 +1065,40 @@ public class LookupService : IDisposable
         return (int)b & 0xFF;
     }
 
+    //public void Dispose()
+    //{
+    //    this.close();
+    //}
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            //// free managed resources
+            //if (managedResource != null)
+            //{
+            //    managedResource.Dispose();
+            //    managedResource = null;
+            //}
+            this.close();
+
+        }
+        //// free native resources if there are any.
+        //if (nativeResource != IntPtr.Zero)
+        //{
+        //    Marshal.FreeHGlobal(nativeResource);
+        //    nativeResource = IntPtr.Zero;
+        //}
+    }
+
+    ~LookupService() 
+    {
+        // Finalizer calls Dispose(false)
+        Dispose(false);
+    }
     public void Dispose()
     {
-        this.close();
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }
