@@ -2,11 +2,10 @@
 #r "FakeLib.dll"
 //#r "Fake.Gallio.dll"
 //#r "System.Xml.Linq"
-//#load "fake.fsx"
+#load "base.fsx"
 
 open System
 open System.IO
-//open System.Xml.Linq
 open Fake
 open Fake.FileUtils
 

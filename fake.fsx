@@ -1,7 +1,7 @@
 #I @"lib"
 #r "FakeLib.dll"
-#r "NuGet.Core.dll"
-#r "System.Xml.Linq"
+//#r "NuGet.Core.dll"
+//#r "System.Xml.Linq"
 
 open System
 open System.IO
@@ -27,7 +27,7 @@ module Xml =
     let replaceValue orig repl (n: XElement) = n.Value <- n.Value.Replace((orig:string), (repl:string))
 
 module Nu =
-    open NuGet
+    //open NuGet
 
     let build version name desc dependencies =
         let builder = 
