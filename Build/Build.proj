@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="PackageArtefacts" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <VersionMajor>0</VersionMajor>
+    <VersionMinor>1</VersionMinor>
+    <VersionPatch>1</VersionPatch>
+    <!--<VersionPreRelease>RC2</VersionPreRelease>-->
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RunMSpecTests>False</RunMSpecTests>
+    <!--<MSpecSpecificationAssemblies>"$(MSBuildProjectDirectory)\..\Solutions\MSpecTests.InstaladoresTDA\Bin\Release\MSpecTests.InstaladoresTDA.dll"</MSpecSpecificationAssemblies>-->
+    <MSpecSpecificationAssemblies>"$(SolutionsPath)\..\Tests\MSpecTests.$(SolutionName).Tests\MSpecTests.$(SolutionName).Tests\Bin\Release\MSpecTests.$(SolutionName).dll"</MSpecSpecificationAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssembliesToTestWithNUnit Include="$(SolutionsPath)\$(SolutionName).tests\bin\$(Configuration)\$(SolutionName).tests.dll;" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <SolutionCompany>ArSat</SolutionCompany>
+    <SolutionName>geoip-api-csharp2</SolutionName>
+    <SolutionsPath>$(MSBuildProjectDirectory)\..</SolutionsPath>
+    <BuildPath>$(MSBuildProjectDirectory)\..\BuildSystem</BuildPath>
+    <WebAppPath>$(SolutionsPath)\src</WebAppPath>
+    <SolutionRoot>$(BuildPath)\..</SolutionRoot>
+  </PropertyGroup>
+
+  <Target Name="DefinePackages">
+	<ItemGroup>
+<!--
+      <PackageFiles Include="$(WebAppPath)\bin\*.*;"
+							Exclude="$(WebAppPath)\**\.svn\**;
+									 $(WebAppPath)\**\*.cs;
+									 $(WebAppPath)\**\*.csproj;
+									 $(WebAppPath)\**\*.user;
+									 $(WebAppPath)\**\*.vspscc;
+									 $(WebAppPath)\**\bin\*.pdb;
+									 $(WebAppPath)\**\web.*.config;
+									 $(WebAppPath)\**\*.xml;
+									 $(WebAppPath)\**\Code\**;
+									 $(WebAppPath)\**\Initialisers\**;
+									 $(WebAppPath)\**\obj\**;
+									 $(WebAppPath)\**\packages.config;
+                   $(WebAppPath)\**\Properties\**;
+									 $(WebAppPath)\**\Registrars\**;
+									 $(WebAppPath)\**\ResourceFiles\**;">
+        <PackageName>$(DropsPath)\$(SemanticVersion)\$(PackageName).v$(SemanticVersion).zip</PackageName>
+        <Flatten>false</Flatten>
+        <WorkingDirectory>$(WebAppPath)\bin</WorkingDirectory>
+      </PackageFiles>
+-->
+      <!--<PackageFiles Include="$(SolutionName)\$(SolutionName).Support\bin\$(Configuration)\**\*.*;"
+							Exclude="$(SolutionName)\**\.svn\**;
+									 $(SolutionName)\**\*.cs;
+									 $(SolutionName)\**\*.csproj;
+									 $(SolutionName)\**\*.user;
+									 $(SolutionName)\**\*.vspscc;
+									 $(SolutionName)\**\bin\*.pdb;
+									 $(SolutionName)\**\web.*.config;
+									 $(SolutionName)\**\*.xml;
+									 $(SolutionName)\**\Code\**;
+									 $(SolutionName)\**\Initialisers\**;
+									 $(SolutionName)\**\obj\**;
+									 $(SolutionName)\**\packages.config;
+                   $(SolutionName)\**\Properties\**;
+									 $(SolutionName)\**\Registrars\**;
+									 $(SolutionName)\**\ResourceFiles\**;">
+        <PackageName>$(DropsPath)\$(SemanticVersion)\$(PackageName).Support.v$(SemanticVersion).zip</PackageName>
+        <Flatten>false</Flatten>
+        <WorkingDirectory>$(SolutionName)\bin\$(Configuration)</WorkingDirectory>
+        --><!--<WorkingDirectory>$(SolutionName)\$(SolutionName).Support</WorkingDirectory>--><!--
+      </PackageFiles>-->
+    </ItemGroup>
+
+	<ItemGroup>
+      <NugetPackage Include="$(SolutionsPath)\src\$(SolutionName)\bin\$(Configuration)\$(SolutionName).dll;
+                                                     $(SolutionsPath)\src\$(SolutionName)\bin\$(Configuration)\$(SolutionName).pdb;">
+		<NuspecFile>$(SolutionsPath)\src\$(SolutionName).csproj</NuspecFile>
+      </NugetPackage>
+    </ItemGroup>
+
+	</Target>
+
+  <Import Project="$(BuildPath)\BuildSystem.proj" />
+
+  <Target Name="Build"
+				DependsOnTargets="CleanSolution;
+														UpdateAssemblyVersion;
+														BuildSolutions;" />
+
+  <Target Name="RunTests"
+					DependsOnTargets="Build;
+														RunNUnitTests;" />
+
+  <!--<Target Name="RunSpecs"
+			DependsOnTargets="Build" />-->
+  
+  <Target Name="RunSpecs"
+			DependsOnTargets="Build;
+								RunTests;
+								RunMSpecSpecifications;" />
+<!--
+  <Target Name="PackageArtefacts"
+					DependsOnTargets="RunSpecs;
+              Package;
+              PackageNuget;
+							BuildSuccess" />
+-->
+  <Target Name="PackageArtefacts"
+					DependsOnTargets="RunSpecs;
+              PackageNuget;
+							BuildSuccess" />
+
+</Project>
